@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+
+# Entornos virtuales
+.venv/
+venv/
+
+# SQLite
+*.db
+
+# Variables de entorno
+.env
+
+# IDE
+.vscode/
+.idea/
