@@ -1,4 +1,4 @@
-# 📚 BabbelApp
+# 📚 Alejandria App
 
 Sistema de gestión de inventario y préstamos para bibliotecas.
 
