@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session # solo para validar la base de datos
 from backend.models.inventory import Inventory
-from backend.models.publications import Publication
+
 
 def get_inventory(db: Session):
     return db.query(Inventory).all()

@@ -1,6 +1,7 @@
 from backend.core.database import sessionlocal
 from backend.models.roles import Role
 
+
 def seed_roles():
     db = sessionlocal()
 
