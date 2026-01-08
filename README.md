@@ -1,4 +1,4 @@
-# 📚 Alejandria App
+# 📚 Biblioteca App
 
 Sistema de gestión de inventario y préstamos para bibliotecas.
 
@@ -24,5 +24,7 @@ Sistema de gestión de inventario y préstamos para bibliotecas.
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-cp .env.example .env
+
+# Crear archivo .env usando el archivo .env.example
+
 python -m uvicorn backend.main:app --reload
