@@ -26,4 +26,4 @@ def create_new_publication_service(db: Session, name: str, year: int, month: int
         raise ValueError(f"Publication with code '{code}' already exists.")
     publication = Publication(name=name, year=year,
                               month=month, type=type, code=code)
-    return create_publication(db, publication)
+    return create_publication_in_db(db, publication)
