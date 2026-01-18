@@ -106,5 +106,5 @@ Registra un nuevo usuario.
 ## Como correr el proyecto (Metodo automatico)
 1. **Simplemente ejecute el siguiente archivo despues de activar el entorno virtual e instalar las dependencias instaladas**
 
-```python run_server.py
+```python run_server.py```
 
