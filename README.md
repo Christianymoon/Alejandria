@@ -86,7 +86,7 @@ Registra un nuevo usuario.
   - `role_id` (int): ID del rol asignado.
   - `is_active` (bool): Estado activo/inactivo.
 
-## ▶️ Cómo correr el proyecto
+## ▶️ Cómo correr el proyecto (Metodo manual)
 
 1. **Crear entorno virtual:**
    ```bash
@@ -102,7 +102,9 @@ Registra un nuevo usuario.
 3. **Configurar variables de entorno:**
    - Crear un archivo `.env` basado en `.env.example`.
 
-4. **Ejecutar el servidor:**
-   ```bash
-   python -m uvicorn backend.main:app --reload
-   ```
+   
+## Como correr el proyecto (Metodo automatico)
+1. **Simplemente ejecute el siguiente archivo despues de activar el entorno virtual e instalar las dependencias instaladas**
+
+```python run_server.py
+
