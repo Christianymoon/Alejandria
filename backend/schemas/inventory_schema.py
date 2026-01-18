@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime 
+from typing import Optional
 
 class InventoryCreate(BaseModel):
     publication_id: int
@@ -13,5 +14,11 @@ class InventoryResponse(BaseModel):
     available_quantity: int
     updated_at: datetime
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }
+
+class InventoryUpdate(BaseModel):
+    id: int
+    total_quantity: int
+    available_quantity: int

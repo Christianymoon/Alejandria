@@ -16,3 +16,8 @@ def create_inventory(db: Session, inventory: Inventory):
     db.commit()
     db.refresh(inventory)
     return inventory
+
+def update_inventory(db: Session, inventory: Inventory):
+    db.commit()
+    db.refresh(inventory)
+    return inventory

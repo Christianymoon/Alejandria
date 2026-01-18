@@ -10,7 +10,9 @@ class User(Base):
     username = Column(String, unique=True, index=True, nullable=False)
     role_id = Column(Integer, ForeignKey("roles.id"), nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
+    total_publications = Column(Integer, default=0)
     is_active = Column(Boolean, default=True)
+    
 
     role = relationship("Role")
     movements = relationship("Movement", back_populates="user")

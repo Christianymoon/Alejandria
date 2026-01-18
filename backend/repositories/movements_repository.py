@@ -7,6 +7,9 @@ def create_movement(db: Session, movement: Movement):
     db.refresh(movement)
     return movement
 
+def get_movements_by_user(db: Session, user_id: int):
+    return db.query(Movement).filter(Movement.user_id == user_id).all()
+
 def get_movements(db: Session):
     return db.query(Movement).all()
 

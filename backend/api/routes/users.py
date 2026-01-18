@@ -16,7 +16,6 @@ router = APIRouter(
 def get_users(db: Session = Depends(get_db)):
     return list_user(db)
 
-
 @router.post("/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     try:
