@@ -50,13 +50,6 @@ Registra inventario inicial para una publicación.
   - `total_quantity` (int): Cantidad total de ejemplares.
   - `available_quantity` (int): Cantidad disponible inicialmente.
 
-#### `POST /inventory/update`
-Actualiza el inventario de una publicación.
-- **Body (JSON):**
-  - `id` (int): ID del registro de inventario.
-  - `total_quantity` (int): Nueva cantidad total.
-  - `available_quantity` (int): Nueva cantidad disponible.
-
 ---
 
 ### 🔄 Movimientos (`/movements`)
@@ -66,11 +59,6 @@ Registro de préstamos y devoluciones.
 #### `GET /movements/`
 Lista el historial de todos los movimientos realizados.
 - **Parámetros:** Ninguno.
-
-#### `GET /movements/user/{user_id}`
-Obtiene el historial de movimientos de un usuario específico.
-- **Parámetros de ruta:**
-  - `user_id` (int): ID del usuario.
 
 #### `POST /movements/`
 Registra un nuevo movimiento (préstamo o devolución).
@@ -114,11 +102,15 @@ Registra un nuevo usuario.
 3. **Configurar variables de entorno:**
    - Crear un archivo `.env` basado en `.env.example`.
 
-   
-## Como correr el proyecto (Metodo automatico)
-1. **Simplemente ejecute el siguiente archivo despues de activar el entorno virtual e instalar las dependencias instaladas**
+4. **Correr el servidor:**
+   ```bash
+   python -m uvicorn backend.main:app --reload
+   ```
 
-  ```python
+## Como correr el proyecto (Metodo automatico)
+1. **Simplemente ejecute el siguiente archivo despues de activar el entorno virtual e instalar las dependencias requeridas**
+
+  ```bash
   python run_server.py
   ```
 
