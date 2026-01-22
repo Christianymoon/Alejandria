@@ -1,10 +1,13 @@
-import os 
-import uvicorn 
+import os
 import shutil
 import sys
+from backend.main import run
 
-if __name__ == "__main__":
+PRODUCTION = True  # change to True when deploying
 
+if PRODUCTION:
+    run()
+else:
     # check if .env file exists
     if not os.path.exists("backend/.env"):
         print("Error: .env file not found")
@@ -16,4 +19,4 @@ if __name__ == "__main__":
             print("Error: .env.example file not found")
             sys.exit(1)
 
-    uvicorn.run("backend.main:app", host="127.0.0.1", port=8000, reload=True)
+    run()
