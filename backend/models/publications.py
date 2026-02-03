@@ -14,3 +14,4 @@ class Publication(Base):
 
     inventory = relationship("Inventory", uselist=False, back_populates="publication")
     movements = relationship("Movement", back_populates="publication")
+    inventory_history = relationship("InventoryHistory", back_populates="publication")

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session # solo para validar la base de datos
-from backend.models.inventory import Inventory
+from backend.models.inventory import Inventory, InventoryHistory
 
 
 def get_inventory(db: Session):
@@ -18,6 +18,15 @@ def create_inventory(db: Session, inventory: Inventory):
     return inventory
 
 def update_inventory(db: Session, inventory: Inventory):
+    db.commit()
+    db.refresh(inventory)
+    return inventory
+
+def get_inventory_history(db: Session):
+    return db.query(InventoryHistory).all()
+
+def set_inventory_history(db: Session, inventory: InventoryHistory):
+    db.add(inventory)
     db.commit()
     db.refresh(inventory)
     return inventory

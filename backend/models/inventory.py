@@ -15,3 +15,14 @@ class Inventory(Base):
     updated_at = Column(DateTime, default=datetime.utcnow)
 
     publication = relationship("Publication", back_populates="inventory")
+
+class InventoryHistory(Base):
+    __tablename__ = "inventory_history"
+
+    id = Column(Integer, primary_key=True, index=True)
+    publication_id = Column(Integer, ForeignKey("publications.id"), nullable=False)
+    total_quantity = Column(Integer, nullable=False)
+    available_quantity = Column(Integer, nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow)
+
+    publication = relationship("Publication", back_populates="inventory_history")

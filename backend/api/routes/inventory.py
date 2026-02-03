@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from backend.core.database import sessionlocal
-from backend.schemas.inventory_schema import InventoryCreate, InventoryResponse, InventoryUpdate
-from backend.services.inventory_service import list_inventory, create_new_inventory, update_inventory_service
+from backend.schemas.inventory_schema import InventoryCreate, InventoryResponse, InventoryUpdate, InventoryHistoryResponse
+from backend.services.inventory_service import list_inventory, create_new_inventory, update_inventory_service, list_inventory_history_service
 from backend.core.database import get_db
 
 router = APIRouter(
@@ -38,3 +38,7 @@ def update_inventory(inventory: InventoryUpdate, db: Session = Depends(get_db)):
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+@router.get("/history", response_model=list[InventoryHistoryResponse])
+def get_inventory_history(db: Session = Depends(get_db)):
+    return list_inventory_history_service(db)
