@@ -25,6 +25,9 @@ def update_inventory(db: Session, inventory: Inventory):
 def get_inventory_history(db: Session):
     return db.query(InventoryHistory).all()
 
+def get_inventory_history_by_publication_id(db: Session, publication_id: int):
+    return db.query(InventoryHistory).filter(InventoryHistory.publication_id == publication_id).all()
+
 def set_inventory_history(db: Session, inventory: InventoryHistory):
     db.add(inventory)
     db.commit()

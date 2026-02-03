@@ -9,7 +9,8 @@ from backend.repositories.inventory_repository import (
     create_inventory,
     update_inventory,
     set_inventory_history,
-    get_inventory_history
+    get_inventory_history,
+    get_inventory_history_by_publication_id
 )
 
 def list_inventory(db: Session):
@@ -53,3 +54,6 @@ def register_inventory_service(db: Session, inventory: Inventory):
 
 def list_inventory_history_service(db: Session):
     return get_inventory_history(db)
+
+def list_inventory_history_by_publication_id_service(db: Session, publication_id: int):
+    return get_inventory_history_by_publication_id(db, publication_id)
