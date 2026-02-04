@@ -39,6 +39,7 @@ def update_inventory_service(db: Session, publication_id: int, quantity: int, av
         raise ValueError("Inventory not found")
     inventory.total_quantity = quantity
     inventory.available_quantity = available
+    inventory.updated_at = datetime.now()
     register_inventory_service(db, inventory)
     return update_inventory(db, inventory)
 
