@@ -51,7 +51,7 @@ def update_inventory_service(db: Session, inventory_id: int, quantity: int, avai
 
 def register_inventory_service(db: Session, inventory: Inventory):
     inventory_history = InventoryHistory(
-        publication_id=inventory.publication_id,
+        inventory_id=inventory.id,
         total_quantity=inventory.total_quantity,
         available_quantity=inventory.available_quantity,
         updated_at=inventory.updated_at
@@ -59,9 +59,9 @@ def register_inventory_service(db: Session, inventory: Inventory):
     return set_inventory_history(db, inventory_history)
 
 
-def list_inventory_history_service(db: Session):
+def inventory_history_service(db: Session):
     return get_inventory_history(db)
 
 
-def list_inventory_history_by_inventory_id(db: Session, inventory_id: int):
+def inventory_history_by_id_service(db: Session, inventory_id: int):
     return get_inventory_history_by_id(db, inventory_id)

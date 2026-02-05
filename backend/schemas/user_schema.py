@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from datetime import datetime
+from typing import Optional
 from backend.schemas.role_schema import RoleResponse
+from backend.schemas.common_schema import UserMini, MovementMini
 
 
 class UserCreate(BaseModel):
@@ -27,3 +29,14 @@ class UserUpdate(BaseModel):
     username: str
     role_id: int
     is_active: bool
+
+
+class UserMovementResponse(BaseModel):
+    username: str
+    role_id: int
+    is_active: bool
+    movements: Optional[list[MovementMini]] = None
+
+    model_config = {
+        "from_attributes": True
+    }

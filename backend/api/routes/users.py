@@ -3,8 +3,13 @@ from sqlalchemy.orm import Session
 
 
 from backend.core.database import sessionlocal
-from backend.schemas.user_schema import UserCreate, UserResponse, UserUpdate
-from backend.services.user_service import list_user, create_new_user, delete_user_by_id_service, update_user_by_id_service
+from backend.schemas.user_schema import UserCreate, UserResponse, UserUpdate, UserMovementResponse
+from backend.services.user_service import (
+    list_user,
+    create_new_user,
+    delete_user_by_id_service,
+    update_user_by_id_service,
+    get_user_movements_service)
 from backend.core.database import get_db
 
 router = APIRouter(
@@ -16,6 +21,11 @@ router = APIRouter(
 @router.get("/", response_model=list[UserResponse])
 def get_users(db: Session = Depends(get_db)):
     return list_user(db)
+
+
+@router.get("/{user_id}/movements", response_model=list[UserMovementResponse])
+def get_user_movements(user_id: int, db: Session = Depends(get_db)):
+    return get_user_movements_service(db, user_id)
 
 
 @router.post("/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)

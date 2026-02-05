@@ -8,6 +8,7 @@ from backend.repositories.user_repository import (
     update_total_publications,
     delete_user_by_id,
     update_user,
+    get_user_movements,
 )
 
 
@@ -17,6 +18,13 @@ def list_user(db: Session):
 
 def get_user_service(db: Session, user_id: int):
     return get_user_by_id(db, user_id)
+
+
+def get_user_movements_service(db: Session, user_id: int):
+    user = get_user_by_id(db, user_id)
+    if not user:
+        raise ValueError("User not found")
+    return get_user_movements(db, user_id)
 
 
 def update_user_publication_service(db: Session, user_id: int, quantity: int):

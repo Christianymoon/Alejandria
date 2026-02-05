@@ -6,9 +6,11 @@ from backend.services.publication_service import (
     get_publications_service,
     get_publication_by_id_service,
     create_new_publication_service,
-    delete_publication_service
+    delete_publication_service,
+    get_publication_history_service
 )
 from backend.schemas.publication_schema import PublicationCreate, PublicationResponse
+from backend.schemas.inventory_schema import InventoryHistoryResponse
 
 
 router = APIRouter(
@@ -26,6 +28,14 @@ def get_publications(db: Session = Depends(get_db)):
 def get_publication(publication_id: int, db: Session = Depends(get_db)):
     try:
         return get_publication_by_id_service(db, publication_id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Publication not found.")
+
+
+@router.get("/{publication_id}/history", response_model=list[InventoryHistoryResponse])
+def get_publication_history(publication_id: int, db: Session = Depends(get_db)):
+    try:
+        return get_publication_history_service(db, publication_id)
     except ValueError:
         raise HTTPException(status_code=404, detail="Publication not found.")
 

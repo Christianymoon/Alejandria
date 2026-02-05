@@ -21,6 +21,10 @@ def update_total_publications(db: Session, user: User):
     return user
 
 
+def get_user_movements(db: Session, user_id: int):
+    return db.query(Movement).filter(Movement.user_id == user_id).all()
+
+
 def create_user(db: Session, user: User):
     db.add(user)
     db.commit()

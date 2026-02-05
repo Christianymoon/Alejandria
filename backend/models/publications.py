@@ -17,5 +17,3 @@ class Publication(Base):
                              back_populates="publication", cascade="all, delete-orphan")
     movements = relationship(
         "Movement", back_populates="publication", cascade="all, delete-orphan")
-    inventory_history = relationship(
-        "InventoryHistory", back_populates="publication", cascade="all, delete-orphan")

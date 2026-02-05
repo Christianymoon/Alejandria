@@ -32,11 +32,7 @@ def get_inventory_history(db: Session):
 
 
 def get_inventory_history_by_id(db: Session, inventory_id: int):
-    return db.query(InventoryHistory).filter(InventoryHistory.id == inventory_id)
-
-
-def get_inventory_history_by_publication_id(db: Session, publication_id: int):
-    return db.query(InventoryHistory).filter(InventoryHistory.publication_id == publication_id).all()
+    return db.query(InventoryHistory).filter(InventoryHistory.inventory_id == inventory_id).all()
 
 
 def set_inventory_history(db: Session, inventory: InventoryHistory):

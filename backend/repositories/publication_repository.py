@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from backend.models.publications import Publication
+from backend.models.inventory import InventoryHistory
 
 
 def get_publications_from_db(db: Session):
@@ -12,6 +13,10 @@ def get_publication_by_id_from_db(db: Session, publication_id: int):
 
 def get_publication_by_code_from_db(db: Session, publication_code: str):
     return db.query(Publication).filter(Publication.code == publication_code).first()
+
+
+def get_publication_history_from_db(db: Session, inventory_id: int):
+    return db.query(InventoryHistory).filter(InventoryHistory.inventory_id == inventory_id).all()
 
 
 def create_publication_in_db(db: Session, publication: Publication):

@@ -7,8 +7,8 @@ from backend.services.inventory_service import (
     list_inventory,
     create_new_inventory,
     update_inventory_service,
-    list_inventory_history_service,
-    list_inventory_history_by_inventory_id
+    inventory_history_service,
+    inventory_history_by_id_service
 )
 
 from backend.core.database import get_db
@@ -26,12 +26,12 @@ def get_inventory(db: Session = Depends(get_db)):
 
 @router.get("/history", response_model=list[InventoryHistoryResponse])
 def get_inventory_history(db: Session = Depends(get_db)):
-    return list_inventory_history_service(db)
+    return inventory_history_service(db)
 
 
 @router.get("/{inventory_id}/history", response_model=list[InventoryHistoryResponse])
 def get_inventory_history_by_id(inventory_id: int, db: Session = Depends(get_db)):
-    return list_inventory_history_by_inventory_id(db, inventory_id)
+    return inventory_history_by_id_service(db, inventory_id)
 
 
 @router.post("/", response_model=InventoryResponse, status_code=status.HTTP_201_CREATED)

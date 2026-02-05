@@ -17,7 +17,7 @@ class InventoryResponse(BaseModel):
 
 class InventoryHistoryResponse(BaseModel):
     id: int
-    publication_id: int
+    inventory_id: int
     total_quantity: int
     available_quantity: int
     updated_at: datetime
