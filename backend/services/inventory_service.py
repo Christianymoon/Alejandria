@@ -10,18 +10,22 @@ from backend.repositories.inventory_repository import (
     update_inventory,
     set_inventory_history,
     get_inventory_history,
-    get_inventory_history_by_publication_id
+    get_inventory_history_by_id,
 )
+
 
 def list_inventory(db: Session):
     return get_inventory(db)
+
 
 def create_new_inventory(db: Session, quantity: int, publication_id: int, available: int):
     inventory = get_inventory_by_publication_id(db, publication_id)
     if inventory:
         raise ValueError("Inventory already exists")
-    inventory = Inventory(publication_id=publication_id, total_quantity=quantity, available_quantity=available, updated_at=datetime.now())
+    inventory = Inventory(publication_id=publication_id, total_quantity=quantity,
+                          available_quantity=available, updated_at=datetime.now())
     return create_inventory(db, inventory)
+
 
 def update_inventory_stock_service(db: Session, publication_id: int, quantity: int):
     inventory = get_inventory_by_publication_id(db, publication_id)
@@ -33,8 +37,9 @@ def update_inventory_stock_service(db: Session, publication_id: int, quantity: i
     inventory.available_quantity -= quantity
     return update_inventory(db, inventory)
 
-def update_inventory_service(db: Session, publication_id: int, quantity: int, available: int):
-    inventory = get_inventory_by_publication_id(db, publication_id)
+
+def update_inventory_service(db: Session, inventory_id: int, quantity: int, available: int):
+    inventory = get_inventory_by_id(db, inventory_id)
     if not inventory:
         raise ValueError("Inventory not found")
     inventory.total_quantity = quantity
@@ -53,8 +58,10 @@ def register_inventory_service(db: Session, inventory: Inventory):
     )
     return set_inventory_history(db, inventory_history)
 
+
 def list_inventory_history_service(db: Session):
     return get_inventory_history(db)
 
-def list_inventory_history_by_publication_id_service(db: Session, publication_id: int):
-    return get_inventory_history_by_publication_id(db, publication_id)
+
+def list_inventory_history_by_inventory_id(db: Session, inventory_id: int):
+    return get_inventory_history_by_id(db, inventory_id)
