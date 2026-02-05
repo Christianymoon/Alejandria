@@ -1,11 +1,13 @@
-from pydantic import BaseModel 
-from datetime import datetime 
+from pydantic import BaseModel
+from datetime import datetime
 from backend.schemas.role_schema import RoleResponse
+
 
 class UserCreate(BaseModel):
     username: str
     role_id: int
     is_active: bool
+
 
 class UserResponse(BaseModel):
     id: int
@@ -19,3 +21,9 @@ class UserResponse(BaseModel):
     model_config = {
         "from_attributes": True
     }
+
+
+class UserUpdate(BaseModel):
+    username: str
+    role_id: int
+    is_active: bool

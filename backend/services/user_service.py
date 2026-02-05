@@ -6,13 +6,18 @@ from backend.repositories.user_repository import (
     create_user,
     get_user_by_id,
     update_total_publications,
+    delete_user_by_id,
+    update_user,
 )
+
 
 def list_user(db: Session):
     return get_users(db)
 
+
 def get_user_service(db: Session, user_id: int):
     return get_user_by_id(db, user_id)
+
 
 def update_user_publication_service(db: Session, user_id: int, quantity: int):
     user = get_user_by_id(db, user_id)
@@ -21,9 +26,27 @@ def update_user_publication_service(db: Session, user_id: int, quantity: int):
     user.total_publications += quantity
     return update_total_publications(db, user)
 
+
 def create_new_user(db: Session, username: str, is_active: bool, role_id: int):
     user = get_user_by_username(db, username)
     if user:
         raise ValueError(f"User with username '{username}' already exists.")
     user = User(username=username, role_id=role_id, is_active=is_active)
     return create_user(db, user)
+
+
+def delete_user_by_id_service(db: Session, user_id: int):
+    user = get_user_by_id(db, user_id)
+    if not user:
+        raise ValueError("User not found")
+    return delete_user_by_id(db, user.id)
+
+
+def update_user_by_id_service(db: Session, user_id, usr: User):
+    user = get_user_by_id(db, user_id)
+    if not user:
+        raise ValueError("User not found")
+    user.username = usr.username
+    user.role_id = usr.role_id
+    user.is_active = usr.is_active
+    return update_user(db, user)
