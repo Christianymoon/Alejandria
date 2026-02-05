@@ -2,6 +2,7 @@ from sqlalchemy import Integer, String, Column
 from sqlalchemy.orm import relationship
 from backend.core.database import Base
 
+
 class Publication(Base):
     __tablename__ = "publications"
 
@@ -12,6 +13,9 @@ class Publication(Base):
     type = Column(String, nullable=False)
     code = Column(String, unique=True, index=True, nullable=False)
 
-    inventory = relationship("Inventory", uselist=False, back_populates="publication")
-    movements = relationship("Movement", back_populates="publication")
-    inventory_history = relationship("InventoryHistory", back_populates="publication")
+    inventory = relationship("Inventory", uselist=False,
+                             back_populates="publication", cascade="all, delete-orphan")
+    movements = relationship(
+        "Movement", back_populates="publication", cascade="all, delete-orphan")
+    inventory_history = relationship(
+        "InventoryHistory", back_populates="publication", cascade="all, delete-orphan")
