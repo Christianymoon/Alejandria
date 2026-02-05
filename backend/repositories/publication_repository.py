@@ -19,3 +19,10 @@ def create_publication_in_db(db: Session, publication: Publication):
     db.commit()
     db.refresh(publication)
     return publication
+
+
+def delete_publication(db: Session, publication_id: int):
+    db.delete(db.query(Publication).filter(
+        Publication.id == publication_id).first())
+    db.commit()
+    return publication_id
