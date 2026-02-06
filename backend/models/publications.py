@@ -13,7 +13,5 @@ class Publication(Base):
     type = Column(String, nullable=False)
     code = Column(String, unique=True, index=True, nullable=False)
 
-    inventory = relationship("Inventory", uselist=False,
-                             back_populates="publication", cascade="all, delete-orphan")
-    movements = relationship(
-        "Movement", back_populates="publication", cascade="all, delete-orphan")
+    inventory = relationship("Inventory", back_populates="publication", cascade="all, delete-orphan", uselist=False)
+    movements = relationship("Movement", back_populates="publication", cascade="all, delete-orphan")

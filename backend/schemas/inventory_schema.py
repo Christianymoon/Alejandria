@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
 
+from backend.schemas.common_schema import PublicationMini
 
 class InventoryResponse(BaseModel):
     id: int

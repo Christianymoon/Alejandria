@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional, TYPE_CHECKING
 from datetime import datetime
-from backend.schemas.common_schema import UserMini, MovementMini
+from backend.schemas.common_schema import UserMini
 
 
 class MovementCreate(BaseModel):

@@ -13,3 +13,9 @@ class MovementMini(BaseModel):
     quantity: int
     movement_type: str
     timestamp: datetime
+
+
+class PublicationMini(BaseModel):
+    id: int
+    name: str
+    code: str
