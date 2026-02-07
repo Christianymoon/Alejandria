@@ -15,4 +15,4 @@ class User(Base):
     
 
     role = relationship("Role")
-    movements = relationship("Movement", back_populates="user")
+    movements = relationship("Movement", back_populates="user", cascade="all, delete-orphan")

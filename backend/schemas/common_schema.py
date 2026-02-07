@@ -9,13 +9,13 @@ class UserMini(BaseModel):
     is_active: bool
 
 
-class MovementMini(BaseModel):
-    quantity: int
-    movement_type: str
-    timestamp: datetime
-
-
 class PublicationMini(BaseModel):
     id: int
     name: str
     code: str
+
+class MovementMini(BaseModel):
+    publication: PublicationMini
+    quantity: int
+    movement_type: str
+    timestamp: datetime

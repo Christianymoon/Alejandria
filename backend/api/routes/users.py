@@ -3,7 +3,8 @@ from sqlalchemy.orm import Session
 
 
 from backend.core.database import sessionlocal
-from backend.schemas.user_schema import UserCreate, UserResponse, UserUpdate, UserMovementResponse
+from backend.schemas.user_schema import UserCreate, UserResponse, UserUpdate
+from backend.schemas.common_schema import MovementMini
 from backend.services.user_service import (
     list_user,
     create_new_user,
@@ -23,7 +24,7 @@ def get_users(db: Session = Depends(get_db)):
     return list_user(db)
 
 
-@router.get("/{user_id}/movements", response_model=list[UserMovementResponse])
+@router.get("/{user_id}/movements", response_model=list[MovementMini])
 def get_user_movements(user_id: int, db: Session = Depends(get_db)):
     return get_user_movements_service(db, user_id)
 

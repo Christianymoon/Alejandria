@@ -22,9 +22,9 @@ def update_total_publications(db: Session, user: User):
 
 
 def get_user_movements(db: Session, user_id: int):
-    return db.query(User).options(
-        joinedload(User.movements)
-    ).filter(User.id == user_id).all()
+    return db.query(Movement).options(
+        joinedload(Movement.publication)
+    ).filter(Movement.user_id == user_id).all()
 
 
 def create_user(db: Session, user: User):
