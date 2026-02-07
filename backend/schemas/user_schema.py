@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
 from backend.schemas.role_schema import RoleResponse
-from backend.schemas.common_schema import UserMini, MovementMini
+from backend.schemas.common_schema import MovementMini
 
 
 class UserCreate(BaseModel):
