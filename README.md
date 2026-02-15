@@ -105,7 +105,12 @@ Elimina un usuario del sistema.
    ```
 
 ### ⚡ Método Automático
-Tras instalar dependencias, ejecute:
+Tras instalar dependencias
+``` bash
+pip install -r requirements.txt
+```
+
+ejecute:
 ```bash
 python run_server.py
 ```
