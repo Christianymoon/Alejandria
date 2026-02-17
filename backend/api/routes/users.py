@@ -5,6 +5,8 @@ from sqlalchemy.orm import Session
 from backend.core.database import sessionlocal
 from backend.schemas.user_schema import UserCreate, UserResponse, UserUpdate
 from backend.schemas.common_schema import MovementMini
+from backend.services.auth_service import validate_token_service
+from backend.models.usersadmin import UserAdmin
 from backend.services.user_service import (
     list_user,
     create_new_user,
@@ -20,12 +22,12 @@ router = APIRouter(
 
 
 @router.get("/", response_model=list[UserResponse])
-def get_users(db: Session = Depends(get_db)):
+def get_users(db: Session = Depends(get_db), token = Depends(validate_token_service)):
     return list_user(db)
 
 
 @router.get("/{user_id}/movements", response_model=list[MovementMini])
-def get_user_movements(user_id: int, db: Session = Depends(get_db)):
+def get_user_movements(user_id: int, db: Session = Depends(get_db), token = Depends(validate_token_service)):
     return get_user_movements_service(db, user_id)
 
 
