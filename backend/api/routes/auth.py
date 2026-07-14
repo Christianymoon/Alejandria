@@ -21,7 +21,7 @@ router = APIRouter(
     tags=["Auth"]
 )
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
 
 @router.post("/signup", response_model=UserAdminResponse, status_code=status.HTTP_201_CREATED)

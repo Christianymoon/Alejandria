@@ -12,79 +12,42 @@ Sistema de gestión de inventario y préstamos para bibliotecas.
 
 ## Documentación de la API
 
-### Publicaciones (`/publications`)
+### Resumen de Endpoints (rutas reales)
 
-Manejo del catálogo de libros y publicaciones.
+Base URL: `http://127.0.0.1:8000`
 
-#### `GET /publications/`
-Obtiene la lista de todas las publicaciones registradas.
+- Root:
+   - `GET /` — mensaje de bienvenida.
 
-#### `GET /publications/view/{publication_id}`
-Obtiene el detalle de una publicación específica.
+- Autenticación (`/auth`):
+   - `POST /auth/signup` — registrar administrador (body según `UserAdminBase`).
+   - `POST /auth/token` — obtener token (form-data: `username`, `password`).
 
-#### `POST /publications/`
-Crea una nueva publicación.
-- **Body (JSON):** `name`, `year`, `month`, `type`, `code`.
+- Usuarios (`/users`) — requiere autenticación:
+   - `GET /users/` — listar usuarios.
+   - `POST /users/` — crear usuario (body: `UserCreate`).
+   - `PUT /users/{user_id}` — actualizar usuario (body: `UserUpdate`).
+   - `DELETE /users/{user_id}` — eliminar usuario.
+   - `GET /users/{user_id}/movements` — listar movimientos del usuario.
 
-#### `PUT /publications/{publication_id}`
-Actualiza los datos de una publicación existente.
+- Inventario (`/inventory`) — requiere autenticación:
+   - `GET /inventory/` — listar inventario.
+   - `GET /inventory/history` — historial completo de inventario.
+   - `GET /inventory/{inventory_id}/history` — historial por inventario.
+   - `POST /inventory/` — crear inventario (body: `InventoryCreate`).
+   - `PUT /inventory/{inventory_id}` — actualizar inventario (body: `InventoryUpdate`).
 
-#### `DELETE /publications/{publication_id}`
-Elimina una publicación del sistema.
+- Publicaciones (`/publications`) — requiere autenticación:
+   - `GET /publications/` — listar publicaciones.
+   - `GET /publications/{publication_id}` — obtener publicación.
+   - `GET /publications/{publication_id}/history` — historial de inventario de la publicación.
+   - `POST /publications/` — crear publicación (body: `PublicationCreate`).
+   - `DELETE /publications/{publication_id}` — eliminar publicación.
 
----
-
-### 📦 Inventario (`/inventory`)
-
-Gestión del stock físico de las publicaciones.
-
-#### `GET /inventory/`
-Lista el inventario actual de todas las publicaciones.
-
-#### `GET /inventory/{publication_id}`
-Consulta el stock disponible de una publicación específica.
-
-#### `POST /inventory/`
-Registra inventario inicial para una publicación.
-- **Body (JSON):** `publication_id`, `total_quantity`, `available_quantity`.
-
-#### `PUT /inventory/{publication_id}`
-Actualiza manualmente las cantidades de stock.
-
----
-
-### 🔄 Movimientos (`/movements`)
-
-Registro de préstamos y devoluciones.
-
-#### `GET /movements/`
-Lista el historial de todos los movimientos realizados.
-
-#### `POST /movements/`
-Registra un nuevo movimiento.
-- **Body (JSON):** `user_id`, `publication_id`, `quantity`, `movement_type` (`IN`/`OUT`).
-
----
-
-### 👥 Usuarios (`/users`)
-
-Gestión de usuarios del sistema.
-
-#### `GET /users/`
-Obtiene la lista de todos los usuarios registrados.
-
-#### `GET /users/{user_id}`
-Obtiene el detalle de un usuario específico.
-
-#### `POST /users/`
-Registra un nuevo usuario.
-- **Body (JSON):** `username`, `role_id`, `is_active`.
-
-#### `PUT /users/{user_id}`
-Actualiza la información o estado de un usuario.
-
-#### `DELETE /users/{user_id}`
-Elimina un usuario del sistema.
+- Movimientos (`/movements`) — requiere autenticación:
+   - `GET /movements/` — listar movimientos.
+   - `GET /movements/user/{user_id}` — listar movimientos por usuario.
+   - `POST /movements/` — crear movimiento (body: `MovementCreate`).
 
 ## ▶️ Guía de Inicio
 
