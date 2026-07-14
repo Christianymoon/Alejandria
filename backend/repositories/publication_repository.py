@@ -1,11 +1,11 @@
 from sqlalchemy.orm import Session
 from backend.models.publications import Publication
 from backend.models.inventory import InventoryHistory
+from backend.models.inventory import Inventory
 
 
 def get_publications_from_db(db: Session):
-    return db.query(Publication).all()
-
+    return db.query(Publication).join(Inventory).order_by(Inventory.available_quantity.desc()).all()
 
 def get_publication_by_id_from_db(db: Session, publication_id: int):
     return db.query(Publication).filter(Publication.id == publication_id).first()
