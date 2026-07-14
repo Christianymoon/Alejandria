@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from backend.core.database import sessionlocal
 from backend.schemas.user_schema import UserCreate, UserResponse, UserUpdate
 from backend.schemas.common_schema import MovementMini
+from backend.models.usersadmin import UserAdmin
 from backend.services.user_service import (
     list_user,
     create_new_user,
@@ -12,10 +13,12 @@ from backend.services.user_service import (
     update_user_by_id_service,
     get_user_movements_service)
 from backend.core.database import get_db
+from backend.services.auth_service import get_current_active_user
 
 router = APIRouter(
     prefix="/users",
     tags=["users"],
+    dependencies=[Depends(get_current_active_user)]
 )
 
 

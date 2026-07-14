@@ -11,7 +11,7 @@ if sys.stderr is None:
 
 from backend.main import run
 
-PRODUCTION = False  # change to True when deploying
+PRODUCTION = True  # change to True when deploying
 
 if PRODUCTION:
     run()

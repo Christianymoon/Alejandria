@@ -1,7 +1,8 @@
 from sqlalchemy import Integer, String, Column, Boolean, ForeignKey, DateTime
-from sqlalchemy.orm import relationship 
-from datetime import datetime 
+from sqlalchemy.orm import relationship
+from datetime import datetime
 from backend.core.database import Base
+
 
 class User(Base):
     __tablename__ = "users"
@@ -12,7 +13,7 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     total_publications = Column(Integer, default=0)
     is_active = Column(Boolean, default=True)
-    
 
     role = relationship("Role")
-    movements = relationship("Movement", back_populates="user", cascade="all, delete-orphan")
+    movements = relationship(
+        "Movement", back_populates="user", cascade="all, delete-orphan")
