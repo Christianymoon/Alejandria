@@ -11,11 +11,15 @@ from backend.services.publication_service import (
 )
 from backend.schemas.publication_schema import PublicationCreate, PublicationResponse
 from backend.schemas.inventory_schema import InventoryHistoryResponse
+from backend.services.auth_service import get_current_active_user
 
+from typing import Annotated
+from backend.models.usersadmin import UserAdmin
 
 router = APIRouter(
     prefix="/publications",
     tags=["publications"],
+    dependencies=[Depends(get_current_active_user)]
 )
 
 

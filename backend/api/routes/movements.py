@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from backend.core.database import get_db
 from backend.models.movements import Movement
 from backend.schemas.movement_schema import MovementCreate, MovementList
+from backend.services.auth_service import get_current_active_user
 from backend.services.movements_service import (
     create_new_movement,
     list_movements,
@@ -12,6 +13,7 @@ from backend.services.movements_service import (
 router = APIRouter(
     prefix="/movements",
     tags=["Movements"],
+    dependencies=[Depends(get_current_active_user)]
 )
 
 

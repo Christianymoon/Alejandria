@@ -12,10 +12,12 @@ from backend.services.inventory_service import (
 )
 
 from backend.core.database import get_db
+from backend.services.auth_service import get_current_active_user
 
 router = APIRouter(
     prefix="/inventory",
     tags=["inventory"],
+    dependencies=[Depends(get_current_active_user)]
 )
 
 
