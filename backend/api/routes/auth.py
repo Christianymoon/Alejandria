@@ -17,11 +17,10 @@ from typing import Annotated
 from backend.security.algorithms import hash_password, verify_password
 
 router = APIRouter(
-    prefix="/auth",
     tags=["Auth"]
 )
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 
 
 @router.post("/signup", response_model=UserAdminResponse, status_code=status.HTTP_201_CREATED)

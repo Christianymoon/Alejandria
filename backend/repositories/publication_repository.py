@@ -5,8 +5,6 @@ from backend.models.inventory import Inventory
 
 
 def get_publications_from_db(db: Session):
-    # outerjoin: publicaciones sin inventario también deben listarse
-    # (create_publication no crea inventario automáticamente)
     return (
         db.query(Publication)
         .outerjoin(Inventory)
