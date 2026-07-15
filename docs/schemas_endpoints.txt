@@ -1,0 +1,263 @@
+# Schemas por endpoint - Alejandria (formato simple para IA)
+# Cada bloque: METHOD PATH
+# auth_required: yes|no
+# request: SchemaName
+#   field: type (constraints)
+# response: SchemaName (or primitive)
+#   field: type
+
+---
+GET /
+auth_required: no
+request: none
+response: object
+  message: str
+
+---
+POST /auth/signup
+auth_required: no
+request: UserAdminBase
+  username: str (min_length=3, max_length=50)
+  password: str (min_length=6, max_length=128)
+  role_id: int (gt=0)
+response: UserAdminResponse
+  id: int
+  username: str
+  role_id: int
+  is_active: bool
+
+---
+POST /auth/token
+auth_required: no
+request: form-data
+  username: str
+  password: str
+response: Token
+  access_token: str
+  token_type: str
+notes: implementation returns access_token as username (string)
+
+---
+GET /users/
+auth_required: yes
+request: none
+response: list[UserResponse]
+  id: int
+  username: str
+  role_id: int
+  total_publications: int
+  role: RoleResponse
+    name: str
+    description: str | None
+    max_publications: int
+  created_at: datetime
+  is_active: bool
+
+---
+POST /users/
+auth_required: yes
+request: UserCreate
+  username: str
+  role_id: int
+  is_active: bool
+response: UserResponse
+  id: int
+  username: str
+  role_id: int
+  total_publications: int
+  role: RoleResponse
+    name: str
+    description: str | None
+    max_publications: int
+  created_at: datetime
+  is_active: bool
+
+---
+GET /users/{user_id}/movements
+auth_required: yes
+request: path user_id: int
+response: list[MovementMini]
+  publication: PublicationMini
+    id: int
+    name: str
+    code: str
+  quantity: int
+  movement_type: str
+  timestamp: datetime
+
+---
+PUT /users/{user_id}
+auth_required: yes
+request: UserUpdate
+  username: str
+  role_id: int
+  is_active: bool
+response: UserResponse (same as above)
+
+---
+DELETE /users/{user_id}
+auth_required: yes
+request: path user_id: int
+response: none (204)
+
+---
+GET /inventory/
+auth_required: yes
+request: none
+response: list[InventoryResponse]
+  id: int
+  publication_id: int
+  total_quantity: int
+  available_quantity: int
+  updated_at: datetime
+
+---
+GET /inventory/history
+auth_required: yes
+request: none
+response: list[InventoryHistoryResponse]
+  id: int
+  inventory_id: int
+  total_quantity: int
+  available_quantity: int
+  updated_at: datetime
+
+---
+GET /inventory/{inventory_id}/history
+auth_required: yes
+request: path inventory_id: int
+response: list[InventoryHistoryResponse] (same as above)
+
+---
+POST /inventory/
+auth_required: yes
+request: InventoryCreate
+  publication_id: int
+  total_quantity: int
+  available_quantity: int
+response: InventoryResponse
+  id: int
+  publication_id: int
+  total_quantity: int
+  available_quantity: int
+  updated_at: datetime
+
+---
+PUT /inventory/{inventory_id}
+auth_required: yes
+request: InventoryUpdate
+  total_quantity: int
+  available_quantity: int
+response: InventoryResponse (same as above)
+
+---
+GET /publications/
+auth_required: yes
+request: none
+response: list[PublicationResponse]
+  id: int
+  name: str
+  year: int
+  month: int
+  type: str
+  code: str
+  inventory: InventoryResponse | None
+
+---
+GET /publications/{publication_id}
+auth_required: yes
+request: path publication_id: int
+response: PublicationResponse (same as above)
+
+---
+GET /publications/{publication_id}/history
+auth_required: yes
+request: path publication_id: int
+response: list[InventoryHistoryResponse]
+
+---
+POST /publications/
+auth_required: yes
+request: PublicationCreate
+  name: str
+  year: int
+  month: int
+  type: str
+  code: str
+response: PublicationResponse
+  id: int
+  name: str
+  year: int
+  month: int
+  type: str
+  code: str
+  inventory: InventoryResponse | None
+
+---
+DELETE /publications/{publication_id}
+auth_required: yes
+request: path publication_id: int
+response: none (204)
+
+---
+GET /movements/
+auth_required: yes
+request: none
+response: list[MovementList]
+  id: int
+  quantity: int
+  movement_type: str
+  timestamp: datetime
+  notes: str | None
+  user: UserMini
+    id: int
+    username: str
+    role_id: int
+    is_active: bool
+
+---
+GET /movements/user/{user_id}
+auth_required: yes
+request: path user_id: int
+response: list[MovementList] (same as above)
+
+---
+POST /movements/
+auth_required: yes
+request: MovementCreate
+  user_id: int
+  publication_id: int
+  quantity: int
+  movement_type: str
+  notes: str | None
+response: MovementList
+  id: int
+  quantity: int
+  movement_type: str
+  timestamp: datetime
+  notes: str | None
+  user: UserMini
+
+---
+# Extra schemas referenced
+RoleResponse:
+  name: str
+  description: str | None
+  max_publications: int
+
+UserMini:
+  id: int
+  username: str
+  role_id: int
+  is_active: bool
+
+PublicationMini:
+  id: int
+  name: str
+  code: str
+
+Token:
+  access_token: str
+  token_type: str
+
+# Nota: datetime se corresponde a timestamps ISO-8601 en respuestas JSON.
