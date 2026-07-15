@@ -12,6 +12,10 @@ class PublicationResponse(BaseModel):
     code: str
     inventory: Optional[InventoryResponse] = None
 
+    model_config = {
+        "from_attributes": True
+    }
+
 
 class PublicationCreate(BaseModel):
     name: str
