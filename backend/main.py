@@ -8,7 +8,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.api.router import api_router
 from backend.core.database import Base, engine
 from backend.core.seed import seed_roles
-from backend.models import inventory, movements, publications, roles, users
 
 # Orígenes permitidos en desarrollo (frontend Vite, puerto por defecto 5173)
 CORS_ORIGINS_DEV = [

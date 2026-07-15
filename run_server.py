@@ -1,6 +1,9 @@
 import os
 import shutil
 import sys
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Standard fix for PyInstaller --noconsole / console=False
 # Uvicorn (and other libs) might try to access TTY methods on sys.stdout/stderr
@@ -11,12 +14,13 @@ if sys.stderr is None:
 
 from backend.main import run
 
-PRODUCTION = True  # change to True when deploying
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 
-if PRODUCTION:
+if ENVIRONMENT == "production":
     run()
-else:
+elif ENVIRONMENT == "development":
     # check if .env file exists
+    print("Running in development mode")
     if not os.path.exists("backend/.env"):
         print("Error: .env file not found")
         print("Copy .env.example to .env and fill in the values")
