@@ -1,3 +1,4 @@
+from backend.main import run
 import os
 import shutil
 import sys
@@ -12,11 +13,11 @@ if sys.stdout is None:
 if sys.stderr is None:
     sys.stderr = open(os.devnull, "w")
 
-from backend.main import run
 
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 
 if ENVIRONMENT == "production":
+    print("running on production mode")
     run()
 elif ENVIRONMENT == "development":
     # check if .env file exists

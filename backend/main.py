@@ -9,13 +9,15 @@ from backend.api.router import api_router
 from backend.core.database import Base, engine
 from backend.core.seed import seed_roles
 
+from backend.core.config import FRONTEND_URL
+
 CORS_ORIGINS_DEV = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
 
 CORS_ORIGINS_PROD: list[str] = [
-    os.getenv("FRONT_DOMAIN"),
+    FRONTEND_URL,
 ]
 
 
