@@ -15,7 +15,7 @@ CORS_ORIGINS_DEV = [
 ]
 
 CORS_ORIGINS_PROD: list[str] = [
-    os.getenv("FRONTEND_URL"),
+    os.getenv("FRONT_DOMAIN"),
 ]
 
 
