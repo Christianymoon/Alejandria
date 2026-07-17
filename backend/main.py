@@ -16,7 +16,9 @@ CORS_ORIGINS_DEV = [
 ]
 
 # Orígenes permitidos en producción (vacío: sin CORS cross-origin)
-CORS_ORIGINS_PROD: list[str] = []
+CORS_ORIGINS_PROD: list[str] = [
+    os.getenv("FRONTEND_URL"),
+]
 
 
 def _is_production() -> bool:
