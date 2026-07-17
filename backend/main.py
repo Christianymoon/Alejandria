@@ -9,20 +9,17 @@ from backend.api.router import api_router
 from backend.core.database import Base, engine
 from backend.core.seed import seed_roles
 
-# Orígenes permitidos en desarrollo (frontend Vite, puerto por defecto 5173)
 CORS_ORIGINS_DEV = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
 
-# Orígenes permitidos en producción (vacío: sin CORS cross-origin)
 CORS_ORIGINS_PROD: list[str] = [
     os.getenv("FRONTEND_URL"),
 ]
 
 
 def _is_production() -> bool:
-    """Producción si el binario está empaquetado o ENVIRONMENT=production."""
     if getattr(sys, "frozen", False):
         return True
     return os.getenv("ENVIRONMENT", "development").lower() == "production"
