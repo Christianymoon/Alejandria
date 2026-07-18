@@ -40,8 +40,8 @@ def get_publication(publication_id: int, db: Session = Depends(get_db)):
 def get_publication_history(publication_id: int, db: Session = Depends(get_db)):
     try:
         return get_publication_history_service(db, publication_id)
-    except ValueError:
-        raise HTTPException(status_code=404, detail="Publication not found.")
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
 
 
 @router.post("/", response_model=PublicationResponse, status_code=status.HTTP_201_CREATED)

@@ -27,6 +27,9 @@ def get_publication_history_service(db: Session, publication_id: int):
     if not publication:
         raise ValueError(
             f"Publication with id '{publication_id}' does not exist.")
+    if publication.inventory is None:
+        raise ValueError(
+            f"Publication with id '{publication_id}' does not have an inventory.")
     return get_publication_history_from_db(db, publication.inventory.id)
 
 
